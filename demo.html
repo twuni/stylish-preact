@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en_US">
+  <head>
+    <meta charset="UTF-8"/>
+    <script async src="/node_modules/es-module-shims/dist/es-module-shims.js"></script>
+  </head>
+  <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "htm": "./node_modules/htm/dist/htm.mjs",
+          "htm/preact": "./node_modules/htm/preact/index.mjs",
+          "preact": "./node_modules/preact/dist/preact.mjs",
+          "preact/hooks": "./node_modules/preact/hooks/dist/hooks.mjs"
+        }
+      }
+    </script>
+    <script type="module">
+      import { Theme, keyframes, stylish } from './src/index.mjs';
+      import { html } from 'htm/preact';
+      import { render } from 'preact';
+
+      const energy = keyframes`
+        0% {
+          background-color: rgba(220, 255, 255, 0);
+        }
+
+        50% {
+          background-color: rgba(255, 255, 220, 100%);
+        }
+
+        100% {
+          background-color: rgba(220, 255, 255, 0);
+        }
+      `;
+
+      const spin = keyframes`
+        0% {
+          transform: rotate(0deg) scale(1, 1);
+        }
+
+        50% {
+          transform: rotate(180deg) scale(0.5, 0.5);
+        }
+
+        100% {
+          transform: rotate(360deg) scale(1, 1);
+        }
+      `;
+
+      const Spinning = stylish('span', ({ theme }) => `
+        align-items: center;
+        animation: infinite 1s linear ${spin};
+        border-color: transparent;
+        border-radius: 2px;
+        border-style: solid;
+        border-width: 2px;
+        box-sizing: border-box;
+        cursor: default;
+        display: flex;
+        font-size: ${theme.size / 2}px;
+        line-height: ${theme.size}px;
+        justify-content: center;
+        width: ${theme.size}px;
+      `);
+
+      const Hat = stylish(Spinning, {
+        rule: `
+          border-color: #0c0;
+        `,
+        states: [':hover']
+      });
+
+      const App = stylish('div', `
+        align-items: center;
+        animation: infinite 1.75s ease-in-out ${energy};
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+      `);
+
+      render(html`
+        <${Theme.Provider} value=${{ size: 48 }}>
+          <${App}>
+            <${Hat} title="Stylish!">🎩<//>
+          <//>
+        <//>
+      `, document.body);
+    </script>
+  </body>
+</html>
