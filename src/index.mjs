@@ -2,6 +2,9 @@ import { createContext } from 'preact';
 import { html } from 'htm/preact';
 import { useContext } from 'preact/hooks';
 
+// eslint-disable-next-line no-magic-numbers
+const generateIdentifier = (prefix = 'ui') => `${prefix}-${Math.ceil(Math.random() * 0xFFFFFFFF).toString(16).padStart(8, '0')}`;
+
 export const Theme = createContext();
 
 const addRule = (rule) => {
@@ -18,11 +21,11 @@ const cache = {};
 
 export const keyframes = (spec) => {
   if (Array.isArray(spec)) {
-    return spec.map(keyframes);
+    return keyframes(spec[0]);
   }
 
   if (!cache[spec]) {
-    cache[spec] = `animation-${Math.ceil(Math.random() * 0xFFFFFFFF).toString(16).padStart(8, '0')}`;
+    cache[spec] = generateIdentifier('animation');
     addRule(`@keyframes ${cache[spec]} { ${spec} }`);
   }
 
@@ -30,6 +33,7 @@ export const keyframes = (spec) => {
 };
 
 export const stylish = (Component, spec) => {
+  // eslint-disable-next-line complexity, max-statements
   const compile = (spec, props, selector = PLACEHOLDER) => {
     if (!spec) {
       return [];
@@ -58,12 +62,22 @@ export const stylish = (Component, spec) => {
     return compile(rule, props, nextSelector).filter(Boolean);
   };
 
+  // eslint-disable-next-line max-statements
   const className = (props) => {
-    const rules = compile(spec, props);
+    if (!spec) {
+      return undefined;
+    }
+
+    const rules = compile(spec, props).filter(Boolean);
+
+    if (rules.length < 1) {
+      return undefined;
+    }
+
     const key = rules.join('\n');
 
     if (!cache[key]) {
-      cache[key] = `ui-${Math.ceil(Math.random() * 0xFFFFFFFF).toString(16).padStart(8, '0')}`;
+      cache[key] = generateIdentifier('ui');
       for (const rule of rules) {
         addRule(rule.replace(new RegExp(PLACEHOLDER, 'g'), `.${cache[key]}`));
       }
@@ -72,9 +86,9 @@ export const stylish = (Component, spec) => {
     return cache[key];
   };
 
-  return (props) => {
+  return function StylishComponent(props) {
     const theme = useContext(Theme);
-    return html`<${Component} ...${props} class=${[props.class, className({ theme, ...props })].filter(Boolean).join(' ')}/>`;
+    return html`<${Component} ...${props} class=${[props.class, className({ theme, ...props })].filter(Boolean).join(' ') || undefined}/>`;
   };
 };
 
