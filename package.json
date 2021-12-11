@@ -1,6 +1,6 @@
 {
   "name": "stylish-preact",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Lightweight extensible styles and themes for Preact apps.",
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.mjs",
