@@ -1,12 +1,21 @@
 # 🎩 Stylish | Preact
 
+![Code Coverage by Test Suite][coverage]
+![License][license]
+[![Bundle Size][footprint]][bundlephobia]
+[![Current Release Version][version]][npm]
+![Weekly Downloads][downloads]
+[![Sponsors][sponsors]][become-a-sponsor]
+
 Stylish is a tiny yet capable CSS library for [Preact][4] apps. It is heavily
 inspired by [@emotion/styled][1] and [styled-components][2], so if you are
 familiar with either of those, you should quickly get the hang of Stylish.
 
 ## Features
 
- * Extremely lightweight (under **1KB** gzipped, _minimal dependencies_)
+ * Extremely lightweight (under **1KB** gzipped)
+ * No dependencies (uses the Preact/HTM you already have)
+ * Comprehensive test suite (100% code coverage)
  * Animations supported
  * Theme context provided right out of the box
  * CSS rules have access to component props
@@ -233,3 +242,12 @@ requirements depending on the type of that item (`string` vs `function` vs
 [4]: https://preactjs.com/
 [5]: https://github.com/developit/htm
 [6]: https://reactjs.org/docs/introducing-jsx.html
+[coverage]: https://img.shields.io/badge/coverage-100%25-success
+[license]: https://img.shields.io/npm/l/stylish-preact
+[footprint]: https://img.shields.io/bundlephobia/minzip/stylish-preact
+[version]: https://img.shields.io/npm/v/stylish-preact
+[downloads]: https://img.shields.io/npm/dw/stylish-preact
+[sponsors]: https://img.shields.io/github/sponsors/canterberry
+[become-a-sponsor]: https://github.com/sponsors/canterberry
+[npm]: https://npmjs.com/package/stylish-preact
+[bundlephobia]: https://bundlephobia.com/package/stylish-preact
