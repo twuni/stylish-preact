@@ -6,6 +6,7 @@
 [![Current Release Version][version]][npm]
 ![Weekly Downloads][downloads]
 [![Sponsors][sponsors]][become-a-sponsor]
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities]
 
 Stylish is a tiny yet capable CSS library for [Preact][4] apps. It is heavily
 inspired by [@emotion/styled][1] and [styled-components][2], so if you are
@@ -251,3 +252,5 @@ requirements depending on the type of that item (`string` vs `function` vs
 [become-a-sponsor]: https://github.com/sponsors/canterberry
 [npm]: https://npmjs.com/package/stylish-preact
 [bundlephobia]: https://bundlephobia.com/package/stylish-preact
+[vulnerabilities-badge]: https://snyk.io/test/npm/stylish-preact/badge.svg
+[vulnerabilities]: https://snyk.io/test/npm/stylish-preact
